@@ -1,14 +1,24 @@
 import assert from 'node:assert/strict'
+import { createRequire } from 'node:module'
 import { MessageChannel } from 'node:worker_threads'
 import test from 'node:test'
 
-import {
+const require = createRequire(import.meta.url)
+let client
+globalThis.window = {
+  __ModuleLoader__: {
+    load: ({ factory }) => { client = factory(require) },
+  },
+}
+await import('../lib/client.js')
+
+const {
   UiContainer,
   UiContainerRemoteClient,
   createMessagePortUiRemoteChannel,
   createWebSocketUiRemoteChannel,
   exposeUiContainerRemote,
-} from '../lib/index.js'
+} = client
 
 const handshake = (capabilities) => ({
   client: { name: 'ui-test', version: '1.0.0', instance_id: 'test-client' },

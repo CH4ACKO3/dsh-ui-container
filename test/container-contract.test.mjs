@@ -24,8 +24,24 @@ test('provides a recursive browser-local visual surface host', async () => {
   assert.match(host, /data-ui-surface-path/)
 })
 
-test('does not couple the container to Workbench or Harness view slots', async () => {
+test('does not couple the container to Workspace or Harness view slots', async () => {
   const entry = await readFile(new URL(`${sourceRoot}index.ts`, import.meta.url), 'utf8')
 
   assert.doesNotMatch(entry, /DocumentSurface|ExplorerPaneStack|conversation\.view/)
+})
+
+test('ships an independently installable DSH client bundle', async () => {
+  const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
+  const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
+  const host = await readFile(new URL('../src/index.ts', import.meta.url), 'utf8')
+  const client = await readFile(new URL(`${sourceRoot}index.ts`, import.meta.url), 'utf8')
+
+  assert.equal(packageJson.dsh.bundle.patch, './cordis.patch.yml')
+  assert.deepEqual(packageJson.dsh.client.inject, ['@deepseek-ai/dsh-client-runtime'])
+  assert.equal(packageJson.exports['.'].default, './lib/index.js')
+  assert.equal(packageJson.exports['./client'].default, './lib/client.js')
+  assert.match(patch, /id: ch4acko3-ui-container/)
+  assert.match(patch, /name: '@ch4acko3\/dsh-ui-container'/)
+  assert.match(host, /export function apply\(\): void/)
+  assert.match(client, /ctx\.provide\('uiContainer'/)
 })

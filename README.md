@@ -5,12 +5,19 @@ owns named UI surfaces, document providers, recursive React hosts, and the small
 remote protocol needed to connect another frontend without transmitting a DOM
 or component tree.
 
+Install the plugin into a DeepSeek Harness profile:
+
 ```sh
-pnpm add github:CH4ACKO3/dsh-ui-container
+dsh plugin --profile web add github:CH4ACKO3/dsh-ui-container
 ```
 
-This package is a library rather than a DSH bundle. Applications import its
-browser entry point from `@ch4acko3/dsh-ui-container/client`.
+Git dependencies run this package's `prepare` build. With pnpm 10 or newer,
+approve the exact package key reported by the first install in the profile's
+`pnpm-workspace.yaml`, then repeat the command. Registry releases and packed
+artifacts do not require that approval.
+
+Other browser plugins import its public API from
+`@ch4acko3/dsh-ui-container/client` and inject the `uiContainer` Cordis service.
 
 ## Remote transport
 

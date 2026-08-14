@@ -3,22 +3,20 @@
     "target": "ES2023",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "rootDir": "src/client",
+    "rootDir": "src",
     "outDir": "lib",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "jsx": "react-jsx",
     "strict": true,
     "verbatimModuleSyntax": true,
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "types": [
-      "react"
+      "node"
     ]
   },
   "include": [
-    "src/client/**/*.ts",
-    "src/client/**/*.tsx"
+    "src/index.ts"
   ]
 }
