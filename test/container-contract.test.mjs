@@ -37,6 +37,7 @@ test('ships an independently installable DSH client bundle', async () => {
   const client = await readFile(new URL(`${sourceRoot}index.ts`, import.meta.url), 'utf8')
 
   assert.equal(packageJson.dsh.bundle.patch, './cordis.patch.yml')
+  assert.equal(packageJson.dsh.client.immediately, true)
   assert.deepEqual(packageJson.dsh.client.inject, ['@deepseek-ai/dsh-client-runtime'])
   assert.equal(packageJson.exports['.'].default, './lib/index.js')
   assert.equal(packageJson.exports['./client'].default, './lib/client.js')
