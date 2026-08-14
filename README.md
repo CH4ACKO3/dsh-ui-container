@@ -11,6 +11,8 @@ Install the plugin into a DeepSeek Harness profile:
 dsh plugin --profile web add github:CH4ACKO3/dsh-ui-container
 ```
 
+This command is profile-scoped and can be run from any directory.
+
 Git dependencies run this package's `prepare` build. With pnpm 10 or newer,
 approve the exact package key reported by the first install in the profile's
 `pnpm-workspace.yaml`, then repeat the command. Registry releases and packed
