@@ -26,29 +26,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
-
-  deliver:
-    needs: verify
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: [self-hosted, linux, x64]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-          dest: ${{ runner.temp }}/setup-pnpm
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: pnpm
-      - run: |
-          set -euo pipefail
-          test ! -e .npmrc
-          trap 'rm -f .npmrc' EXIT
-          printf '%s\n' \
-            'proxy=http://127.0.0.1:1081' \
-            'https-proxy=http://127.0.0.1:1081' > .npmrc
-          pnpm install --frozen-lockfile
       - run: mkdir -p artifacts && pnpm pack --pack-destination artifacts
       - uses: actions/upload-artifact@v4
         with:
@@ -56,3 +33,19 @@ jobs:
           path: artifacts/*.tgz
           if-no-files-found: error
           retention-days: 14
+
+  deliver:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dsh-ui-container-${{ github.sha }}
+          path: artifacts
+      - run: |
+          set -euo pipefail
+          shopt -s nullglob
+          artifacts=(artifacts/*.tgz)
+          test "${#artifacts[@]}" -eq 1
+          tar -tzf "${artifacts[0]}" >/dev/null
