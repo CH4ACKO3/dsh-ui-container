@@ -19,10 +19,10 @@ export default defineConfig({
   outDir: 'lib',
   clean: true,
   fixedExtension: false,
-  outExtensions: () => ({ js: '.js', dts: '.d.ts' }),
+  outExtensions: () => ({ js: '.js' }),
   hash: false,
   sourcemap: true,
-  dts: { eager: true },
+  dts: false,
   banner: { js: moduleHeader },
   footer: { js: moduleFooter },
 })
