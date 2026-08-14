@@ -42,6 +42,10 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+        env:
+          NODE_USE_ENV_PROXY: "1"
+          HTTP_PROXY: http://127.0.0.1:1081
+          HTTPS_PROXY: http://127.0.0.1:1081
       - run: mkdir -p artifacts && pnpm pack --pack-destination artifacts
       - uses: actions/upload-artifact@v4
         with:
