@@ -7,7 +7,7 @@ declare module '@deepseek-ai/cordis' {
   }
 }
 
-export const name = '@memorax-agent/dsh-ui-container'
+export const name = '@ch4acko3/dsh-ui-container'
 export const inject = [] as const
 
 export function apply(ctx: ClientContext): void {

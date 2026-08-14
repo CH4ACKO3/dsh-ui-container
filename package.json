@@ -1,5 +1,5 @@
 {
-  "name": "@memorax-agent/dsh-ui-container",
+  "name": "@ch4acko3/dsh-ui-container",
   "version": "0.1.0",
   "description": "Remote-capable recursive UI surface container for DeepSeek Harness",
   "type": "module",

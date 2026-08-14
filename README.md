@@ -10,11 +10,11 @@ pnpm add github:CH4ACKO3/dsh-ui-container
 ```
 
 This package is a library rather than a DSH bundle. Applications import its
-browser entry point from `@memorax-agent/dsh-ui-container/client`.
+browser entry point from `@ch4acko3/dsh-ui-container/client`.
 
 ## Remote transport
 
-`@memorax-agent/dsh-ui-container` can project a container across a process or
+`@ch4acko3/dsh-ui-container` can project a container across a process or
 network boundary. The remote contract transfers document snapshots and change
 notifications; it never transfers React elements, DOM nodes or a Cordis service
 object.
